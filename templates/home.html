@@ -1,0 +1,38 @@
+{% extends 'Base.html' %}
+
+{% block content %}
+
+<!--users uid, names, email, password, role-->
+<!--borrowers bid, names, email, phone-->
+<!--books book_id, title, author, category, book_number-->
+<!--transactions tid, bid, date_borrowed, date_returned, expected_return_date, status-->
+<!--charges cid, date_charged, amount, status-->
+
+<div id="slides" class="carousel slide" data-ride="carousel">
+    <ul class="carousel-indicators">
+        <li data-target="#slides" data-slide-to="0" class="active"></li>
+        <li data-target="#slides" data-slide-to="1"></li>
+        <li data-target="#slides" data-slide-to="2"></li>
+    </ul>
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="../static/img/lib.jpg" alt="image">
+            <div class="carousel-caption">
+                <h1 class="display-2">Desire Library</h1>
+                <h3>Your Library, Your Paradise</h3>
+                <button type="button" class="btn btn-outline-light btn-lg">VIEW
+                    DEMO
+                </button>
+                <button type="button" class="btn btn-primary btn-lg">Get Started</button>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <img src="../static/img/lib2.jpg" alt="image2">
+        </div>
+        <div class="carousel-item ">
+            <img src="../static/img/lib3.jpg" alt="image3">
+        </div>
+    </div>
+</div>
+
+{% endblock %}

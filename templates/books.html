@@ -1,0 +1,93 @@
+{% extends 'Base.html' %}
+
+{% block content %}
+    {# users uid, names, email, password, role
+    # borrowers bid, names, email, phone
+    # books book_id, title, author, category, book_number
+    # transactions tid, bid, date_borrowed, date_returned, expected_return_date, status
+    # charges cid, date_charged, amount, status#}
+
+    <div class="container">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul class=flashes>
+                    {% for message in messages %}
+                        <p class="text-info text-center">{{ message }}</p>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+        <div class="row justify-content-center">
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="text-center">Books</h3>
+                    </div>
+                    <div class="card-body">
+
+                        <form method="post" action="/books">
+                            <div class="form-group">
+                                <label for="exampleInputtitle">Title</label>
+                                <input type="title" name="title" class="form-control" id="exampleInputtitle"
+                                       aria-describedby="titleHelp" placeholder="Enter title">
+                                <small id="titleHelp" class="form-text text-muted">We'll never share your title with
+                                    anyone
+                                    else.
+                                </small>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="exampleInputauthor1">Author</label>
+                                <input type="author" name="author" class="form-control" id="exampleInputauthor1"
+                                       aria-describedby="authorHelp" placeholder="Enter author">
+                                <small id="authorHelp" class="form-text text-muted">We'll never share your author with
+                                    anyone
+                                    else.
+                                </small>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="exampleInputbook_no">Book number</label>
+                                <input type="book_no" name="book_no" class="form-control" id="exampleInputbook_no"
+                                       aria-describedby="book-noHelp" placeholder="Enter book_no">
+                                <small id="book_noHelp" class="form-text text-muted">We'll never share your book with
+                                    anyone
+                                    else.
+                                </small>
+                            </div>
+                            <div class="form-check-inline">
+
+                                <label class="form-check-label">
+                                    <label for="exampleInputcategory"></label>
+                                    <input type="radio" class="form-check-input" name="category" value="political">political
+                                </label>
+                            </div>
+                            <div class="form-check-inline">
+                                <label class="form-check-label">
+                                    <input type="radio" class="form-check-input" name="category" value="Religious">Religious
+                                </label>
+                            </div>
+                            <div class="form-check-inline">
+                                <label class="form-check-label">
+                                    <input type="radio" class="form-check-input" name="category" value="History">Historical
+                                </label>
+                            </div>
+                            <div class="form-check-inline">
+                                <label class="form-check-label">
+                                    <input type="radio" class="form-check-input" name="category" value="Adventure">Adventure
+                                    Novels
+                                </label>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-block btn-sm">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock %}

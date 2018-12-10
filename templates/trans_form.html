@@ -24,7 +24,7 @@
                                 <label>Select Book</label>
                                 <select name="book_id" class="form-control">
                                     {% for book in books %}
-                                        <option value="{{ book[0] }}">{{ book[1] }} {{ book[2] }}</option>
+                                        <option value="{{ book[1] }}">{{ book[0] }} {{ book[2] }}</option>
                                     {% endfor %}
                                 </select>
 
@@ -35,7 +35,7 @@
                                 <select name="borrower_id" class="form-control">
 
                                     {% for person in people %}
-                                        <option value="{{ person[0] }}">{{ person[1] }} {{ person[2] }}</option>
+                                        <option value="{{ person[0] }}">{{ person[2] }} {{ person[1] }}</option>
                                     {% endfor %}
                                 </select>
                             </div>

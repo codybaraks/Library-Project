@@ -58,11 +58,11 @@ def forms_bor():
         cursor.execute(sql, val)
         db.commit()
         flash("Your Successfuly saved!")
-        redirect(url_for('show_borrower'))
+        redirect(url_for('show_boro'))
 
     return render_template('brow_form.html')
 
-@app.route('/show_borrowers')
+@app.route('/show_boro')
 def show_bor():
     cursor = db.cursor()
     sql = "SELECT * FROM borrowers"

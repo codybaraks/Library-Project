@@ -31,8 +31,17 @@ def forms():
         cursor.execute(sql, val)
         db.commit()
         flash("Credentials Successfuly saved!")
+        redirect(url_for('show_users'))
 
     return render_template('usr_form.html')
+
+@app.route('/show_users')
+def show_users():
+    cursor = db.cursor()
+    sql = "SELECT * FROM users"
+    cursor.execute(sql)
+    users = cursor.fetchall()
+    return render_template('show_user.html', users=users)
 
 
 @app.route('/borrow', methods=['POST', 'GET'])
@@ -49,8 +58,17 @@ def forms_bor():
         cursor.execute(sql, val)
         db.commit()
         flash("Your Successfuly saved!")
+        redirect(url_for('show_borrower'))
 
     return render_template('brow_form.html')
+
+@app.route('/show_borrowers')
+def show_bor():
+    cursor = db.cursor()
+    sql = "SELECT * FROM borrowers"
+    cursor.execute(sql)
+    borrowers = cursor.fetchall()
+    return render_template('show_borrower.html', borrowers=borrowers)
 
 
 @app.route('/books', methods=['POST', 'GET'])
@@ -68,8 +86,18 @@ def book():
         cursor.execute(sql, val)
         db.commit()
         flash("Your Successfuly saved!")
+        redirect(url_for('show_books'))
 
     return render_template('books.html')
+
+@app.route('/show_books')
+def show_books():
+    cursor = db.cursor()
+    sql = "SELECT * FROM `books`"
+    cursor.execute(sql)
+    books = cursor.fetchall()
+    return render_template('show_books.html', books=books)
+
 
 @app.route('/issue', methods=['POST', 'GET'])
 def issue():

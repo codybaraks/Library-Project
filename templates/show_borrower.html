@@ -9,12 +9,13 @@
                 <th>Name</th>
                 <th>Email</th>
                 <th>Phone</th>
+                <th>Delete</th>
             </tr>
             {% for borrower in borrowers %}
                 <tr>
-                    <td>{{ borrower[0] }}</td>
                     <td>{{ borrower[1] }}</td>
                     <td>{{ borrower[2] }}</td>
+                    <td>{{ borrower[3] }}</td>
                     <td>{{ borrower[3] }}</td>
                 </tr>
             {% endfor %}

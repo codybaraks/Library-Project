@@ -58,12 +58,12 @@ def forms_bor():
         cursor.execute(sql, val)
         db.commit()
         flash("Your Successfuly saved!")
-        redirect(url_for('show_boro'))
+        redirect(url_for('show_borrowers'))
 
     return render_template('brow_form.html')
 
-@app.route('/show_boro')
-def show_bor():
+@app.route('/show_borrowers')
+def show_b():
     cursor = db.cursor()
     sql = "SELECT * FROM borrowers"
     cursor.execute(sql)
@@ -123,6 +123,28 @@ def issue():
     cursor.execute(sql2)
     people= cursor.fetchall()
     return render_template('trans_form.html', books=books,people=people)
+
+# This section is for Button
+
+@app.route('/delete')
+def remove():
+    cursor = db.cursor()
+    sql = "SELECT * FROM `borrowers`"
+    # UPDATE '' SET salary=500 WHERE id = 455
+    cursor.execute(sql)
+    refugees = cursor.fetchall()
+    return render_template('remove.html', refugees=refugees)
+
+@app.route('/del/<id>')
+def del_ref(id):
+    cursor = db.cursor()
+    sql = "DELETE FROM borrowers WHERE id=%s"
+    cursor.execute(sql, (id,))
+    # cursor.execute(sql)
+    db.commit()
+    flash('Borrower Successfully Removed ')
+    return redirect(url_for('remove'))
+
 
 @app.errorhandler(404)
 def error_page(e):

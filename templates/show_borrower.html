@@ -9,14 +9,14 @@
                 <th>Name</th>
                 <th>Email</th>
                 <th>Phone</th>
-                <th>Delete</th>
+                <th>Remove</th>
             </tr>
             {% for borrower in borrowers %}
                 <tr>
                     <td>{{ borrower[1] }}</td>
                     <td>{{ borrower[2] }}</td>
                     <td>{{ borrower[3] }}</td>
-                    <td>{{ borrower[3] }}</td>
+                    <td><a href="/del/{{ borrower[0] }}" class="btn btn-danger btn-sm">Delete</a></td>
                 </tr>
             {% endfor %}
         </table>

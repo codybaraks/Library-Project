@@ -1,8 +1,9 @@
-from flask import Flask, render_template, request, redirect, flash, url_for
+from flask import Flask, render_template, request, redirect, flash, url_for, session
 
 import mysql.connector as connector
 
 from datetime import date, timedelta
+
 
 db = connector.connect(host="localhost", user="root", passwd="root", database="library")
 
@@ -13,12 +14,16 @@ app.secret_key = 'jxbxjxdjdjdjddj'
 
 @app.route('/')
 def homes():
+    if session.get('names')==None:
+        return redirect(url_for('login'))
     return render_template('home.html')
 
 
 # users uid, names, email, password, role
 @app.route('/form', methods=['POST', 'GET'])
 def forms():
+    if session.get('names')==None:
+        return redirect(url_for('login'))
     if request.method == "POST":
         name = request.form["name"]
         email = request.form["email"]
@@ -39,6 +44,8 @@ def forms():
 
 @app.route('/show_users')
 def show_users():
+    if session.get('names')==None:
+        return redirect(url_for('login'))
     cursor = db.cursor()
     sql = "SELECT * FROM users"
     cursor.execute(sql)
@@ -48,6 +55,8 @@ def show_users():
 
 @app.route('/borrow', methods=['POST', 'GET'])
 def forms_bor():
+    if session.get('names')==None:
+        return redirect(url_for('login'))
     if request.method == "POST":
         name = request.form["name"]
         email = request.form["email"]
@@ -67,6 +76,8 @@ def forms_bor():
 
 @app.route('/show_borrower')
 def show_borrower():
+    if session.get('names')==None:
+        return redirect(url_for('login'))
     cursor = db.cursor()
     sql = "SELECT * FROM borrowers"
     cursor.execute(sql)
@@ -76,6 +87,8 @@ def show_borrower():
 
 @app.route('/books', methods=['POST', 'GET'])
 def book():
+    if session.get('names')==None:
+        return redirect(url_for('login'))
     if request.method == "POST":
         title = request.form["title"]
         author = request.form["author"]
@@ -96,6 +109,8 @@ def book():
 
 @app.route('/show_books')
 def show_books():
+    if session.get('names')==None:
+        return redirect(url_for('login'))
     cursor = db.cursor()
     sql = "SELECT * FROM `books`"
     cursor.execute(sql)
@@ -105,6 +120,8 @@ def show_books():
 
 @app.route('/issue', methods=['POST', 'GET'])
 def issue():
+    if session.get('names')==None:
+        return redirect(url_for('login'))
     if request.method == "POST":
         book_id = request.form["book_id"]
         borrower_id = request.form["borrower_id"]
@@ -133,6 +150,8 @@ def issue():
 
 @app.route('/delete')
 def remove():
+    if session.get('names')==None:
+        return redirect(url_for('login'))
     cursor = db.cursor()
     sql = "SELECT * FROM borrowers"
     cursor.execute(sql)
@@ -142,6 +161,8 @@ def remove():
 
 @app.route('/del/<id>')
 def del_ref(id):
+    if session.get('names')==None:
+        return redirect(url_for('login'))
     cursor = db.cursor()
     sql = "DELETE FROM borrowers WHERE bid=%s"
     cursor.execute(sql, (id,))
@@ -150,6 +171,35 @@ def del_ref(id):
     return redirect(url_for('remove'))
 
 
+
+# Login Section
+
+@app.route('/login',methods=['GET','POST'])
+def login():
+    if request.method == 'GET':
+        return render_template('login.html')
+    email = request.form['email']
+    password = request.form['password']
+    cursor = db.cursor()
+    sql = "SELECT * FROM users WHERE email=%s AND password=%s"
+    vals=(email,password)
+    cursor.execute(sql, vals)
+    user = cursor.fetchone()
+    if len(user)>1:
+        session['names']=user[1]
+        session['role']=user[4]
+        return redirect(url_for('homes'))
+    else:
+        flash('message','wrong username or password!')
+    return render_template('login.html')
+
+@app.route('/logout')
+def logout():
+    if session.get('names')==None:
+        return redirect(url_for('login'))
+    session.pop('names')
+    session.pop('role')
+    return render_template('login.html')
 @app.errorhandler(404)
 def error_page(e):
     return render_template('error.html')

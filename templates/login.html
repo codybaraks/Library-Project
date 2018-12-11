@@ -1,0 +1,53 @@
+{% extends 'Base.html' %}
+
+{% block content %}
+    {# users uid, names, email, password, role
+    # borrowers bid, names, email, phone
+    # books book_id, title, author, category, book_number
+    # transactions tid, bid, date_borrowed, date_returned, expected_return_date, status
+    # charges cid, date_charged, amount, status#}
+
+    <div class="container">
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul class=flashes>
+                    {% for message in messages %}
+                        <p class="text-info text-center">{{ message }}</p>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+        <div class="row justify-content-center">
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="text-center">Login</h3>
+                    </div>
+                    <div class="card-body">
+
+                        <form method="post" action="/login">
+                            <div class="form-group">
+                                <label for="exampleInputtitle">Email</label>
+                                <input type="email" name="email" class="form-control" id="exampleInputtitle"
+                                       aria-describedby="titleHelp" placeholder="Enter title">
+                            </div>
+
+                              <div class="form-group">
+                                <label for="exampleInputtitle">Password</label>
+                                <input type="password" name="password" class="form-control" id="exampleInputtitle"
+                                       aria-describedby="titleHelp" placeholder="Enter title">
+
+                            </div>
+
+
+                            <button type="submit" class="btn btn-primary btn-block btn-sm">Login</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+{% endblock %}

@@ -11,7 +11,7 @@
 /*scroll-behavior: smooth;*/
 /*}*/
 .navbar-nav li {
-    padding-left: 54px;  /*This part controls navugation bar alignment*/
+    padding-left: 20px;  /*This part controls navugation bar alignment*/
     padding-top: 0px;
     /*background-color: pink; !important;*/
 
@@ -47,16 +47,38 @@
 .justify-content-center {
     padding-top: 120px;
 }
+.dropdown
+{
+    /*text-align: right;*/
+      ;
+}
+.btn-secondary
+{
+    color: gold;
 
-.navbar-nav {
+}
+.navbar-nav
+{
     text-align: center;
-    width: 100%;
+    width: 45%;
+
+}
+.navbar-nav ul
+{
+    text-align: center;
+
 }
 .navbar-nav
 {
     padding-left: 2px;
 }
+.dropdown-content
+{
+  background-color: #f9f9f9;
+}
 .navbar-nav {
+    text-align: center;
+
     /*padding-left: 2px;*/
     /*!*position: fixed;*!*/
 /*display: block;*/

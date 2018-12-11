@@ -18,6 +18,7 @@ transactions tid, bid, date_borrowed, date_returned, expected_return_date, statu
 charges cid, date_charged, amount, status
 #}
 <body>
+
 <nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
     <div class="container-fluid">
         <a class="navbar-brand" href="/form"><img src="../static/img/lib.jpeg" class="rounded-circle float-left"
@@ -31,33 +32,44 @@ charges cid, date_charged, amount, status
                 {% if session.get('names') != None %}
                     <li class="nav-item active">
                         <a class="nav-link" href="/">Home</a>
-
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                            Add People
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="/form">Add User</a>
+                            <a class="dropdown-item" href="/borrow">Add Borrower</a>
+                            <a class="dropdown-item" href="/books">Add Books</a>
+                        </div>
                     </li>
 
-                    <li class="nav-item">
-                        <a class="nav-link" href="/form">Add User</a>
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="/borrow">Add Borrower</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/books">Add Books</a>
-                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/issue">Issue Book</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/show_users">Show User</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/show_borrower">Show Borrowers</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/show_books">Show Books</a>
+{#                    <li class="nav-item">#}
+{#                        <a class="nav-link" href="/show_users">Show User</a>#}
+{#                    </li>#}
+{#                    <li class="nav-item">#}
+{#                        <a class="nav-link" href="/show_borrower">Show Borrowers</a>#}
+{#                    </li>#}
+{#                    <li class="nav-item">#}
+{#                        <a class="nav-link" href="/show_books">Show Books</a>#}
+{#                    </li>#}
+
+                     <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                           Show People
+                        </a>
+                        <div class="dropdown-menu">
+                            <a class="dropdown-item" href="/show_users">Show User</a>
+                            <a class="dropdown-item" href="/show_borrower">Show Borrower</a>
+                            <a class="dropdown-item" href="/show_books">Show Books</a>
+                        </div>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/logout">LogOut</a>
+
                     </li>
                 {% else %}
                     <li class="nav-item">

@@ -60,13 +60,13 @@ def forms_bor():
         cursor.execute(sql, val)
         db.commit()
         flash("Your Successfuly saved!")
-        redirect(url_for('show_borrowers'))
+        redirect(url_for('show_borrower'))
 
     return render_template('brow_form.html')
 
 
-@app.route('/show_borrowers')
-def show_b():
+@app.route('/show_borrower')
+def show_borrower():
     cursor = db.cursor()
     sql = "SELECT * FROM borrowers"
     cursor.execute(sql)
@@ -120,7 +120,7 @@ def issue():
         flash("Your Successfuly Issued Book!")
 
     cursor = db.cursor()
-    sql = "SELECT `book_id`,`book_no` , `title` FROM `books`"
+    sql = "SELECT `book_no`,`title`,`book_id` FROM `books`"
     cursor.execute(sql)
     books = cursor.fetchall()
     sql2 = "SELECT `bid`,`phone`, `name` FROM `borrowers`"

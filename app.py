@@ -4,7 +4,7 @@ import mysql.connector as connector
 
 from datetime import date, timedelta
 
-db = connector.connect(host="localhost", user="root", passwd="root", database="library")
+db = connector.connect(host="localhost", user="Admin", passwd="root", database="library")
 
 app = Flask(__name__)
 
@@ -204,8 +204,15 @@ def returned(id):
         return redirect(url_for('login'))
     cursor = db.cursor()
     sql = "UPDATE transactions SET status='returned', d_returned=%s WHERE trans_id=%s"
-    return_date=date.today()
+    return_date= date.today()
+    sql = "SELECT TIMEDIFF()"
     # section to calculate charges
+    # expected_return = date.today() + timedelta(5)
+    # sql2 = "SELECT if expect_return_d  > now(), expected_date, UPDATE charges SET amount=%s"
+    # amount = 100
+    # SELECT DATE_SUB("2018-12-18", INTERVAL 5 DAY)
+    # SELECT DATE_SUB(now(), INTERVAL 5 DAY)
+
     cursor.execute(sql, (return_date, id))
     db.commit()
     flash('Returned Book Successfully ')

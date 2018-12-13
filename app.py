@@ -4,7 +4,6 @@ import mysql.connector as connector
 
 from datetime import date, timedelta
 
-
 db = connector.connect(host="localhost", user="root", passwd="root", database="library")
 
 app = Flask(__name__)
@@ -14,7 +13,7 @@ app.secret_key = 'jxbxjxdjdjdjddj'
 
 @app.route('/')
 def homes():
-    if session.get('names')==None:
+    if session.get('names') == None:
         return redirect(url_for('login'))
     return render_template('home.html')
 
@@ -22,7 +21,7 @@ def homes():
 # users uid, names, email, password, role
 @app.route('/form', methods=['POST', 'GET'])
 def forms():
-    if session.get('names')==None:
+    if session.get('names') == None:
         return redirect(url_for('login'))
     if request.method == "POST":
         name = request.form["name"]
@@ -44,7 +43,7 @@ def forms():
 
 @app.route('/show_users')
 def show_users():
-    if session.get('names')==None:
+    if session.get('names') == None:
         return redirect(url_for('login'))
     cursor = db.cursor()
     sql = "SELECT * FROM users"
@@ -55,7 +54,7 @@ def show_users():
 
 @app.route('/borrow', methods=['POST', 'GET'])
 def forms_bor():
-    if session.get('names')==None:
+    if session.get('names') == None:
         return redirect(url_for('login'))
     if request.method == "POST":
         name = request.form["name"]
@@ -76,7 +75,7 @@ def forms_bor():
 
 @app.route('/show_borrower')
 def show_borrower():
-    if session.get('names')==None:
+    if session.get('names') == None:
         return redirect(url_for('login'))
     cursor = db.cursor()
     sql = "SELECT * FROM borrowers"
@@ -87,7 +86,7 @@ def show_borrower():
 
 @app.route('/books', methods=['POST', 'GET'])
 def book():
-    if session.get('names')==None:
+    if session.get('names') == None:
         return redirect(url_for('login'))
     if request.method == "POST":
         title = request.form["title"]
@@ -109,7 +108,7 @@ def book():
 
 @app.route('/show_books')
 def show_books():
-    if session.get('names')==None:
+    if session.get('names') == None:
         return redirect(url_for('login'))
     cursor = db.cursor()
     sql = "SELECT * FROM `books`"
@@ -120,13 +119,14 @@ def show_books():
 
 @app.route('/issue', methods=['POST', 'GET'])
 def issue():
-    if session.get('names')==None:
+    if session.get('names') == None:
         return redirect(url_for('login'))
     if request.method == "POST":
         book_id = request.form["book_id"]
         borrower_id = request.form["borrower_id"]
         date_borrowed = date.today()
         expected_return = date.today() + timedelta(5)
+        print(book_id)
 
         sql = "INSERT INTO `transactions`( `borrow_id`, `d_borowed`,  `expect_return_d`,`book_id`)" \
               " VALUES (%s,%s,%s,%s)"
@@ -143,6 +143,7 @@ def issue():
     sql2 = "SELECT `bid`,`phone`, `name` FROM `borrowers`"
     cursor.execute(sql2)
     people = cursor.fetchall()
+    db.commit()
     return render_template('trans_form.html', books=books, people=people)
 
 
@@ -150,7 +151,7 @@ def issue():
 
 @app.route('/delete')
 def remove():
-    if session.get('names')==None:
+    if session.get('names') == None:
         return redirect(url_for('login'))
     cursor = db.cursor()
     sql = "SELECT * FROM borrowers"
@@ -159,9 +160,22 @@ def remove():
     return render_template('show_borrower.html', borrowers=borrowers)
 
 
+@app.route('/returns')
+def returns():
+    if session.get('names') == None:
+        return redirect(url_for('login'))
+    cursor = db.cursor(buffered=True)
+    sql = "SELECT borrowers.bid, borrowers.name,transactions.trans_id,transactions.d_borowed,transactions.d_returned,transactions.expect_return_d,books.book_id,books.title,books.book_no FROM borrowers JOIN transactions ON borrowers.bid = transactions.borrow_id JOIN books ON books.book_id = transactions.book_id WHERE transactions.status= 'not Returned'"
+    cursor.execute(sql)
+    transactions = cursor.fetchall()
+    db.commit()
+    redirect(url_for('show_returned'))
+    return render_template('show_borrowed_books.html', transactions=transactions)
+
+
 @app.route('/del/<id>')
 def del_ref(id):
-    if session.get('names')==None:
+    if session.get('names') == None:
         return redirect(url_for('login'))
     cursor = db.cursor()
     sql = "DELETE FROM borrowers WHERE bid=%s"
@@ -171,10 +185,36 @@ def del_ref(id):
     return redirect(url_for('remove'))
 
 
+@app.route('/show_returned')
+def show_returned():
+    if session.get('names') == None:
+        return redirect(url_for('login'))
+    cursor = db.cursor(buffered=True)
+    sql = "SELECT borrowers.bid, borrowers.name,transactions.trans_id,transactions.d_borowed,transactions.d_returned,transactions.expect_return_d,books.book_id,books.title,books.book_no FROM borrowers JOIN transactions ON borrowers.bid = transactions.borrow_id JOIN books ON books.book_id = transactions.book_id WHERE transactions.status= 'Returned'"
+    # sql2 = "UPDATE transactions SET d_returned = CURDATE();"
+    cursor.execute(sql)
+    db.commit()
+    transactions = cursor.fetchall()
+    return render_template('show_returned_books.html', transactions=transactions)
+
+
+@app.route('/returned/<id>')
+def returned(id):
+    if session.get('names') == None:
+        return redirect(url_for('login'))
+    cursor = db.cursor()
+    sql = "UPDATE transactions SET status='returned', d_returned=%s WHERE trans_id=%s"
+    return_date=date.today()
+    # section to calculate charges
+    cursor.execute(sql, (return_date, id))
+    db.commit()
+    flash('Returned Book Successfully ')
+    return redirect(url_for('returns'))
+
 
 # Login Section
 
-@app.route('/login',methods=['GET','POST'])
+@app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'GET':
         return render_template('login.html')
@@ -182,24 +222,27 @@ def login():
     password = request.form['password']
     cursor = db.cursor()
     sql = "SELECT * FROM users WHERE email=%s AND password=%s"
-    vals=(email,password)
+    vals = (email, password)
     cursor.execute(sql, vals)
     user = cursor.fetchone()
-    if len(user)>1:
-        session['names']=user[1]
-        session['role']=user[4]
+    if len(user) > 1:
+        session['names'] = user[1]
+        session['role'] = user[4]
         return redirect(url_for('homes'))
     else:
-        flash('message','wrong username or password!')
+        flash('message', 'wrong username or password!')
     return render_template('login.html')
+
 
 @app.route('/logout')
 def logout():
-    if session.get('names')==None:
+    if session.get('names') == None:
         return redirect(url_for('login'))
     session.pop('names')
     session.pop('role')
     return render_template('login.html')
+
+
 @app.errorhandler(404)
 def error_page(e):
     return render_template('error.html')

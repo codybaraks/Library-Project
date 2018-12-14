@@ -3,8 +3,9 @@ from flask import Flask, render_template, request, redirect, flash, url_for, ses
 import mysql.connector as connector
 
 from datetime import date, timedelta
+import time
 
-db = connector.connect(host="localhost", user="Admin", passwd="root", database="library")
+db = connector.connect(host="localhost", user="root", passwd="root", database="library")
 
 app = Flask(__name__)
 
@@ -21,6 +22,7 @@ def homes():
 # users uid, names, email, password, role
 @app.route('/form', methods=['POST', 'GET'])
 def forms():
+
     if session.get('names') == None:
         return redirect(url_for('login'))
     if request.method == "POST":
@@ -169,6 +171,7 @@ def returns():
     cursor.execute(sql)
     transactions = cursor.fetchall()
     db.commit()
+    # print(transactions[0])
     redirect(url_for('show_returned'))
     return render_template('show_borrowed_books.html', transactions=transactions)
 
@@ -193,19 +196,66 @@ def show_returned():
     sql = "SELECT borrowers.bid, borrowers.name,transactions.trans_id,transactions.d_borowed,transactions.d_returned,transactions.expect_return_d,books.book_id,books.title,books.book_no FROM borrowers JOIN transactions ON borrowers.bid = transactions.borrow_id JOIN books ON books.book_id = transactions.book_id WHERE transactions.status= 'Returned'"
     # sql2 = "UPDATE transactions SET d_returned = CURDATE();"
     cursor.execute(sql)
-    db.commit()
     transactions = cursor.fetchall()
     return render_template('show_returned_books.html', transactions=transactions)
+@app.route('/completed')
+def completed():
+    if session.get('names') == None:
+        return redirect(url_for('login'))
+    cursor = db.cursor(buffered=True)
+    sql = "SELECT borrowers.bid,borrowers.name,borrowers.phone,charges.days,charges.date_charged,charges.amount, charges.cid FROM borrowers JOIN charges ON borrowers.bid = charges.b_id WHERE charges.status = 'Paid'"
+    # sql2 = "UPDATE transactions SET d_returned = CURDATE();"
+    cursor.execute(sql)
+    charges = cursor.fetchall()
+    return render_template('show_completed.html', charges=charges)
 
+@app.route('/charges')
+def charges():
+    if session.get('names') == None:
+        return redirect(url_for('login'))
+    cursor = db.cursor(buffered=True)
+    sql = "SELECT borrowers.bid,borrowers.name,borrowers.phone,charges.days,charges.date_charged,charges.amount, charges.cid FROM borrowers JOIN charges ON borrowers.bid = charges.b_id WHERE charges.status = 'Not paid'"
+    # sql2 = "UPDATE transactions SET d_returned = CURDATE();"
+    cursor.execute(sql)
+    charges = cursor.fetchall()
+    return render_template('show_charges.html', charges=charges)
+
+@app.route('/paid/<id>')
+def paid(id):
+    if session.get('names') == None:
+        return redirect(url_for('login'))
+    cursor = db.cursor()
+    sql = "UPDATE charges SET status='Paid' WHERE cid=%s"
+    cursor.execute(sql, (id,))
+    db.commit()
+    flash('charges paid Successfully ')
+    return redirect(url_for('charges'))
 
 @app.route('/returned/<id>')
 def returned(id):
     if session.get('names') == None:
         return redirect(url_for('login'))
     cursor = db.cursor()
+    sql2 = "SELECT * FROM transactions WHERE trans_id =%s"
+    cursor.execute(sql2,(id,))
+    result=cursor.fetchone()
+    expected = result[4]
+    return_date = date.today()
+    if return_date>expected:
+        # print('Overstayed')
+        # print(abs(return_date-expected).days)
+        days = abs(return_date-expected).days
+        sql3 = "INSERT INTO `charges`( `b_id`, `t_id`, `days`, `date_charged`, `amount`)" \
+               " VALUES (%s,%s,%s,%s,%s)"
+        vals = (result[1],result[0],days,return_date,days*100)
+        cursor.execute(sql3,vals)
+        db.commit()
+
     sql = "UPDATE transactions SET status='returned', d_returned=%s WHERE trans_id=%s"
-    return_date= date.today()
-    sql = "SELECT TIMEDIFF()"
+
+
+
+    # sql = "SELECT TIMEDIFF()"
     # section to calculate charges
     # expected_return = date.today() + timedelta(5)
     # sql2 = "SELECT if expect_return_d  > now(), expected_date, UPDATE charges SET amount=%s"

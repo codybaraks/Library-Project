@@ -14,19 +14,25 @@
         <table class="table" id="example">
             <thead>
             <tr>
-                <th>Book Title</th>
-                <th>Author</th>
-                <th>Category</th>
-                <th>Book Number</th>
+                <th>Borrower ID</th>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>DAYS</th>
+                <th>DATE</th>
+                <th>AMOUNT</th>
+                <th>PAID</th>
             </tr>
             </thead>
             <tbody>
-            {% for book in books %}
+            {% for charge in charges %}
                 <tr>
-                    <td>{{ book[1] }}</td>
-                    <td>{{ book[2] }}</td>
-                    <td>{{ book[3] }}</td>
-                    <td>{{ book[4] }}</td>
+                    <td>{{ charge[0] }}</td>
+                    <td>{{ charge[1] }}</td>
+                    <td>{{ charge[2] }}</td>
+                    <td>{{ charge[3] }}</td>
+                    <td>{{ charge[4] }}</td>
+                    <td>{{ charge[5] }}</td>
+                    <td><a class="btn btn-primary" href="/paid/{{ charge[6] }}">Paid</a></td>
                 </tr>
             {% endfor %}
             </tbody>

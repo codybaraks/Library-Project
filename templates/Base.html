@@ -9,6 +9,10 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
     <link rel="stylesheet" href="../static/styles.css">
+
+{% block extras %}
+
+{% endblock %}
 </head>
 {#
 users uid, names, email, password, role
@@ -69,6 +73,8 @@ charges cid, date_charged, amount, status
                             <a class="dropdown-item" href="/show_borrower">Borrowers</a>
                             <a class="dropdown-item" href="/show_books">Books</a>
                             <a class="dropdown-item" href="/show_returned">Returned Books</a>
+                            <a class="dropdown-item" href="/completed">Paid Charges</a>
+                            <a class="dropdown-item" href="/charges">Pending Charges</a>
                         </div>
                     </li>
 

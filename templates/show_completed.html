@@ -12,27 +12,33 @@
     <div class="container">
 
         <table class="table" id="example">
+            <thead>
             <tr>
+                <th>Borrower ID</th>
                 <th>Name</th>
-                <th>Book Title</th>
-                <th>Book Number</th>
-                <th>Date Borrowed</th>
-                <th>Expected Return Date</th>
-
+                <th>Phone</th>
+                <th>DAYS</th>
+                <th>DATE</th>
+                <th>AMOUNT</th>
             </tr>
-            {% for transaction in transactions %}
+            </thead>
+            <tbody>
+            {% for charge in charges %}
                 <tr>
-                    <td>{{ transaction[1] }}</td>
-                    <td>{{ transaction[6] }}</td>
-                    <td>{{ transaction[7] }}</td>
-                    <td>{{ transaction[3] }}</td>
-                    <td>{{ transaction[4] }}</td>
+                    <td>{{ charge[0] }}</td>
+                    <td>{{ charge[1] }}</td>
+                    <td>{{ charge[2] }}</td>
+                    <td>{{ charge[3] }}</td>
+                    <td>{{ charge[4] }}</td>
+                    <td>{{ charge[5] }}</td>
+
                 </tr>
             {% endfor %}
+            </tbody>
         </table>
     </div>
 
-  <script>
+    <script>
         $(document).ready(function () {
             $('#example').DataTable();
         });

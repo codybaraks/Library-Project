@@ -1,17 +1,27 @@
 {% extends 'Base.html' %}
 
+{% block extras %}
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+    <script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
+{% endblock %}
+
 {% block content %}
 
     <div class="container">
 
-        <table class="table">
-            <tr>
+        <table class="table" id="example">
+        <thead>
+         <tr>
                 <th>Name</th>
                 <th>Email</th>
                 <th>Phone</th>
                 <th>Remove</th>
             </tr>
-            {% for borrower in borrowers %}
+        </thead>
+           <tbody>
+           {% for borrower in borrowers %}
                 <tr>
                     <td>{{ borrower[1] }}</td>
                     <td>{{ borrower[2] }}</td>
@@ -19,8 +29,15 @@
                     <td><a href="/del/{{ borrower[0] }}" class="btn btn-danger btn-sm">Delete</a></td>
                 </tr>
             {% endfor %}
+           </tbody>
+
         </table>
     </div>
 
+  <script>
+        $(document).ready(function () {
+            $('#example').DataTable();
+        });
+    </script>
 
 {% endblock %}

@@ -59,21 +59,23 @@ def show_users():
 def forms_bor():
     if session.get('names') == None:
         return redirect(url_for('login'))
-    if request.method == "POST":
-        name = request.form["name"]
-        email = request.form["email"]
-        phone = request.form["phone"]
+    form=BorowRegForm()
+    if form.validate_on_submit():
+        if request.method == "POST":
+            name = request.form["name"]
+            email = request.form["email"]
+            phone = request.form["phone"]
 
-        print(name, email, phone)
-        cursor = db.cursor()
-        sql = "INSERT INTO `borrowers` (`name`, `email`, `phone`) VALUES (%s,%s,%s)"
-        val = (name, email, phone)
-        cursor.execute(sql, val)
-        db.commit()
-        flash("Your Successfuly saved!")
-        redirect(url_for('show_borrower'))
+            print(name, email, phone)
+            cursor = db.cursor()
+            sql = "INSERT INTO `borrowers` (`name`, `email`, `phone`) VALUES (%s,%s,%s)"
+            val = (name, email, phone)
+            cursor.execute(sql, val)
+            db.commit()
+            flash("Your Successfuly saved!")
+            redirect(url_for('show_borrower'))
 
-    return render_template('brow_form.html')
+    return render_template('brow_form.html', form=form)
 
 
 @app.route('/show_borrower')

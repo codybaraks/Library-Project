@@ -26,34 +26,50 @@
                     <div class="card-body">
 
                         <form method="post" action="/borrow">
+                         {{ form.csrf_token }}
                             <div class="form-group">
                                 <label for="exampleInputname">Name</label>
                                 <input type="name" name="name" class="form-control" id="exampleInputname"
-                                       aria-describedby="nameHelp" placeholder="Enter name">
+                                       aria-describedby="nameHelp" placeholder="Enter name"
+                                      value="{% if form.name.data %}{{ form.name.data  }}{% endif %}">
                                 <small id="nameHelp" class="form-text text-muted">We'll never share your name with
                                     anyone
                                     else.
                                 </small>
+                              {% for error in form.name.errors %}
+                                    <span style="color: red;">{{ error }}</span>
+                                {% endfor %}
+
                             </div>
 
                             <div class="form-group">
                                 <label for="exampleInputEmail1">Email address</label>
                                 <input type="email" name="email" class="form-control" id="exampleInputEmail1"
-                                       aria-describedby="emailHelp" placeholder="Enter email">
+                                       aria-describedby="emailHelp" placeholder="Enter email"
+                                 value="{% if form.email.data %}{{ form.email.data }}{% endif %}">
                                 <small id="emailHelp" class="form-text text-muted">We'll never share your email with
                                     anyone
                                     else.
                                 </small>
+                              {% for error in form.email.errors %}
+                                    <span style="color: red;">{{ error }}</span>
+                                {% endfor %}
+
                             </div>
 
                             <div class="form-group">
                                 <label for="exampleInputPhone">Phone</label>
                                 <input type="phone" name="phone" class="form-control" id="exampleInputPhone"
-                                       aria-describedby="PhoneHelp" placeholder="Enter Phone">
+                                       aria-describedby="PhoneHelp" placeholder="Enter Phone"
+                                 value="{% if form.phone.data %}{{ form.phone.data }}{% endif %}">
                                 <small id="phoneHelp" class="form-text text-muted">We'll never share your email with
                                     anyone
                                     else.
                                 </small>
+                              {% for error in form.phone.errors %}
+                                    <span style="color: maroon;">{{ error }}</span>
+                                {% endfor %}
+
                             </div>
                             <div class="pull-right">
                                 <button type="submit" class="btn btn-primary btn-block btn-sm">Submit</button>

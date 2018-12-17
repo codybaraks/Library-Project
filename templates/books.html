@@ -26,11 +26,12 @@
                     <div class="card-body">
 
                         <form method="post" action="/books">
-                         {{ form.csrf_token }}
+                            {{ form.csrf_token }}
                             <div class="form-group">
                                 <label for="exampleInputtitle">Title</label>
                                 <input type="title" name="title" class="form-control" id="exampleInputtitle"
-                                       aria-describedby="titleHelp" placeholder="Enter title" value="{% if form.title.data %}{{ form.title.data  }}{% endif %}">
+                                       aria-describedby="titleHelp" placeholder="Enter title"
+                                       value="{% if form.title.data %}{{ form.title.data }}{% endif %}">
                                 <small id="titleHelp" class="form-text text-muted">We'll never share your title with
                                     anyone
                                     else.
@@ -43,7 +44,8 @@
                             <div class="form-group">
                                 <label for="exampleInputauthor1">Author</label>
                                 <input type="author" name="author" class="form-control" id="exampleInputauthor1"
-                                       aria-describedby="authorHelp" placeholder="Enter author" value="{% if form.author.data %}{{ form.author.data  }}{% endif %}">
+                                       aria-describedby="authorHelp" placeholder="Enter author"
+                                       value="{% if form.author.data %}{{ form.author.data }}{% endif %}">
                                 <small id="authorHelp" class="form-text text-muted">We'll never share your author with
                                     anyone
                                     else.
@@ -57,7 +59,8 @@
                             <div class="form-group">
                                 <label for="exampleInputbook_no">Book number</label>
                                 <input type="book_no" name="book_no" class="form-control" id="exampleInputbook_no"
-                                       aria-describedby="book-noHelp" placeholder="Enter book_no" value="{% if form.book_no.data %}{{ form.book_no.data  }}{% endif %}">
+                                       aria-describedby="book-noHelp" placeholder="Enter book_no"
+                                       value="{% if form.book_no.data %}{{ form.book_no.data }}{% endif %}">
                                 <small id="book_noHelp" class="form-text text-muted">We'll never share your book with
                                     anyone
                                     else.

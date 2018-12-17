@@ -1,6 +1,7 @@
 {% extends 'Base.html' %}
 
 {% block content %}
+    <body background="../static/img/HDlib.jpg">
     <div class="container">
         {% with messages = get_flashed_messages() %}
             {% if messages %}
@@ -51,7 +52,7 @@
             </div>
         </div>
     </div>
-
+</body>
 
 
 {% endblock %}

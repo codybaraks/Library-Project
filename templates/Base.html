@@ -8,11 +8,19 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
     <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+    {#for zoom#}
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Bootstrap core CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.5.16/css/mdb.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../static/mbootsrap.css">
     <link rel="stylesheet" href="../static/styles.css">
 
-{% block extras %}
+    {% block extras %}
 
-{% endblock %}
+    {% endblock %}
 </head>
 {#
 users uid, names, email, password, role
@@ -25,8 +33,14 @@ charges cid, date_charged, amount, status
 
 <nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
     <div class="container-fluid">
-        <a class="navbar-brand" href="/form"><img src="../static/img/lib.jpeg" class="rounded-circle float-left"
-                                                  height="100" width="100" alt="logo"></a>
+        <div class="view overlay zoom">
+            <a class="navbar-brand" href="/form">
+                <img src="../static/img/lib.jpeg" class="rounded-circle float-left" alt="logo" width="100" height="100"></a>
+            <div class="mask flex-center">
+                <p class="yellow-text">Desire</p>
+            </div>
+        </div>
+
         <button class="navbar-toggler" type="button" data-toggle="collapse"
                 data-target="#navbar-Responsive">
             <span class="navbar-toggler-icon"></span>
@@ -51,22 +65,22 @@ charges cid, date_charged, amount, status
                     <li class="nav-item">
                         <a class="nav-link" href="/issue">Issue Book</a>
                     </li>
-{#                    <li class="nav-item">#}
-{#                        <a class="nav-link" href="/show_users">Show User</a>#}
-{#                    </li>#}
-{#                    <li class="nav-item">#}
-{#                        <a class="nav-link" href="/show_borrower">Show Borrowers</a>#}
-{#                    </li>#}
-{#                    <li class="nav-item">#}
-{#                        <a class="nav-link" href="/show_books">Show Books</a>#}
-{#                    </li>#}
+                    {#                    <li class="nav-item">#}
+                    {#                        <a class="nav-link" href="/show_users">Show User</a>#}
+                    {#                    </li>#}
+                    {#                    <li class="nav-item">#}
+                    {#                        <a class="nav-link" href="/show_borrower">Show Borrowers</a>#}
+                    {#                    </li>#}
+                    {#                    <li class="nav-item">#}
+                    {#                        <a class="nav-link" href="/show_books">Show Books</a>#}
+                    {#                    </li>#}
                     <li class="nav-item">
-                         <a class="nav-link" href="/returns">Returns</a>
-                     </li>
+                        <a class="nav-link" href="/returns">Returns</a>
+                    </li>
 
-                     <li class="nav-item dropdown">
+                    <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                           Show
+                            Show
                         </a>
                         <div class="dropdown-menu">
                             <a class="dropdown-item" href="/show_users">Users</a>
@@ -92,7 +106,9 @@ charges cid, date_charged, amount, status
         </div>
     </div>
 </nav>
+<div class="background">
 
+</div>
 
 {% block content %}
 

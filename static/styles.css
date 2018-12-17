@@ -1,5 +1,30 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,700');
-
+.background
+{
+    background-image: url("../static/img/HDlib.jpg");
+}
+p.yellow-text
+{
+     color: #9C1A1C;
+}
+p.yellow-text
+{
+    font-size: 20px;
+    margin-left: 8%;
+}
+.navbar-brand
+{
+    width: 80%;
+}
+.rounded-circle
+{
+    margin-left: 12%;
+}
+/*.navbar-brand img*/
+/*{*/
+     /*height: 12%;*/
+     /*width:  20%;*/
+/*}*/
 /*html, body {*/
 /*height: 100%;*/
 /*width: 100%;*/

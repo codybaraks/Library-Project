@@ -1,0 +1,27 @@
+.img-fluid
+{
+    /*margin-left: 40%;*/
+    /*margin-top: 10%;*/
+    margin: 0 auto;
+    margin-top: 2%;
+    height: 50px;
+    width: 80px;
+}
+p
+{
+    font-size: 5px;
+}
+/*.mask  {*/
+
+    /*margin: 0 auto;*/
+    /*height: 10px;*/
+    /*width: 100px;*/
+/*}*/
+/*.flex-item {*/
+    /*align-self: center;*/
+    /*height: 100px;*/
+    /*width: 100px;*/
+/*}*/
+
+/*width: 4rem;*/
+/*}*/

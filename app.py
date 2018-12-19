@@ -297,7 +297,6 @@ def login():
             flash('message', 'wrong username or password!')
     return render_template('login.html', form=loginForm)
 
-
 @app.route('/logout')
 def logout():
     if session.get('names') == None:
@@ -306,6 +305,9 @@ def logout():
     session.pop('role')
     return redirect(url_for('login'))
 
+@app.route('/fake')
+def fake():
+    return "Fake Route"
 
 @app.errorhandler(404)
 def error_page(e):

@@ -11,6 +11,11 @@ class UserRegForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(),Email(message="Invalid Emaill")])
     password = PasswordField('Password', validators=[DataRequired(message="You must provide a password"), Length(min=6, message="Password Too short")])
 
+class LoginForm(FlaskForm):
+    email = StringField('Email', validators=[DataRequired(),Email(message="Invalid Emaill")])
+    password = PasswordField('Password', validators=[DataRequired(message="You must provide a password"), Length(min=6, message="Password Too short")])
+
+
 class BorowRegForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired(),Length(min=8, message="Your name is too short")])
     email = StringField('Email', validators=[DataRequired(),Email(message="Invalid Emaill")])

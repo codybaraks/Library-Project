@@ -24,7 +24,11 @@ def homes():
 def forms():
     if session.get('names') == None:
         return redirect(url_for('login'))
-    form=UserRegForm()
+
+    if session.get('role') == "Normal":
+        return redirect(url_for('homes'))
+
+    form = UserRegForm()
     if form.validate_on_submit():
         if request.method == "POST":
             name = request.form["name"]
@@ -59,7 +63,7 @@ def show_users():
 def forms_bor():
     if session.get('names') == None:
         return redirect(url_for('login'))
-    form=BorowRegForm()
+    form = BorowRegForm()
     if form.validate_on_submit():
         if request.method == "POST":
             name = request.form["name"]
@@ -93,7 +97,7 @@ def show_borrower():
 def book():
     if session.get('names') == None:
         return redirect(url_for('login'))
-    form=BookRegForm()
+    form = BookRegForm()
     if form.validate_on_submit():
         if request.method == "POST":
             title = request.form["title"]
@@ -171,6 +175,9 @@ def remove():
 def returns():
     if session.get('names') == None:
         return redirect(url_for('login'))
+
+    if session.get('role') == "Normal":
+        return redirect(url_for('homes'))
     cursor = db.cursor(buffered=True)
     sql = "SELECT borrowers.bid, borrowers.name,transactions.trans_id,transactions.d_borowed,transactions.d_returned,transactions.expect_return_d,books.book_id,books.title,books.book_no FROM borrowers JOIN transactions ON borrowers.bid = transactions.borrow_id JOIN books ON books.book_id = transactions.book_id WHERE transactions.status= 'not Returned'"
     cursor.execute(sql)
@@ -203,6 +210,8 @@ def show_returned():
     cursor.execute(sql)
     transactions = cursor.fetchall()
     return render_template('show_returned_books.html', transactions=transactions)
+
+
 @app.route('/completed')
 def completed():
     if session.get('names') == None:
@@ -213,6 +222,7 @@ def completed():
     cursor.execute(sql)
     charges = cursor.fetchall()
     return render_template('show_completed.html', charges=charges)
+
 
 @app.route('/charges')
 def charges():
@@ -225,6 +235,7 @@ def charges():
     charges = cursor.fetchall()
     return render_template('show_charges.html', charges=charges)
 
+
 @app.route('/paid/<id>')
 def paid(id):
     if session.get('names') == None:
@@ -236,29 +247,29 @@ def paid(id):
     flash('charges paid Successfully ')
     return redirect(url_for('charges'))
 
+
 @app.route('/returned/<id>')
 def returned(id):
     if session.get('names') == None:
         return redirect(url_for('login'))
+
     cursor = db.cursor()
     sql2 = "SELECT * FROM transactions WHERE trans_id =%s"
-    cursor.execute(sql2,(id,))
-    result=cursor.fetchone()
+    cursor.execute(sql2, (id,))
+    result = cursor.fetchone()
     expected = result[4]
     return_date = date.today()
-    if return_date>expected:
+    if return_date > expected:
         # print('Overstayed')
         # print(abs(return_date-expected).days)
-        days = abs(return_date-expected).days
+        days = abs(return_date - expected).days
         sql3 = "INSERT INTO `charges`( `b_id`, `t_id`, `days`, `date_charged`, `amount`)" \
                " VALUES (%s,%s,%s,%s,%s)"
-        vals = (result[1],result[0],days,return_date,days*100)
-        cursor.execute(sql3,vals)
+        vals = (result[1], result[0], days, return_date, days * 100)
+        cursor.execute(sql3, vals)
         db.commit()
 
     sql = "UPDATE transactions SET status='returned', d_returned=%s WHERE trans_id=%s"
-
-
 
     # sql = "SELECT TIMEDIFF()"
     # section to calculate charges
@@ -276,9 +287,10 @@ def returned(id):
 
 # Login Section
 
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    loginForm=EmailPasswordForm()
+    loginForm=UserLoginForm()
     if request.method == 'GET':
         return render_template('login.html', form=loginForm)
     if loginForm.validate_on_submit():
@@ -305,9 +317,11 @@ def logout():
     session.pop('role')
     return redirect(url_for('login'))
 
+
 @app.route('/fake')
 def fake():
     return "Fake Route"
+
 
 @app.errorhandler(404)
 def error_page(e):

@@ -1,29 +1,70 @@
 @import url('https://fonts.googleapis.com/css?family=Poppins:400,500,700');
-.background
-{
+
+.background {
     background-image: url("../static/img/HDlib.jpg");
 }
-p.yellow-text
-{
-     color: #9C1A1C;
+
+p.yellow-text {
+    color: #9C1A1C;
 }
-p.yellow-text
-{
+
+p.yellow-text {
     font-size: 20px;
     margin-left: 8%;
 }
-.navbar-brand
-{
+
+.navbar-brand {
     width: 80%;
 }
-.rounded-circle
-{
+
+.rounded-circle {
     margin-left: 12%;
 }
+
+.form-group .log_user img {
+    position: absolute;
+    top: 125px;
+    left: 25px;
+    z-index: 1;
+}
+.form-group .log_pass img {
+    position: absolute;
+    top: 214px;
+    left: 25px;
+    z-index: 1;
+}
+.form-group .reg_user1 img {
+    position: absolute;
+    top: 125px;
+    left: 25px;
+    z-index: 1;
+}
+.form-group .reg_user2 img {
+    position: absolute;
+    top: 236px;
+    left: 26px;
+    z-index: 1;
+}
+.form-group .reg_user3 img {
+    position: absolute;
+    top: 344px;
+    left: 25px;
+    z-index: 1;
+}
+
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+  color: pink;
+}
+
+/* add padding  */
+.left-addon input  { padding-left:  30px; }
+.right-addon input { padding-right: 30px; }
+
 /*.navbar-brand img*/
 /*{*/
-     /*height: 12%;*/
-     /*width:  20%;*/
+/*height: 12%;*/
+/*width:  20%;*/
 /*}*/
 /*html, body {*/
 /*height: 100%;*/
@@ -36,7 +77,7 @@ p.yellow-text
 /*scroll-behavior: smooth;*/
 /*}*/
 .navbar-nav li {
-    padding-left: 20px;  /*This part controls navugation bar alignment*/
+    padding-left: 20px; /*This part controls navugation bar alignment*/
     padding-top: 0px;
     /*background-color: pink; !important;*/
 
@@ -72,41 +113,41 @@ p.yellow-text
 .justify-content-center {
     padding-top: 120px;
 }
-.dropdown
-{
-    /*text-align: right;*/
-      ;
+
+.dropdown {
+    /*text-align: right;*/;
 }
-.btn-secondary
-{
+
+.btn-secondary {
     color: gold;
 
 }
-.navbar-nav
-{
+
+.navbar-nav {
     text-align: center;
     width: 55%;
 
 }
-.navbar-nav ul
-{
+
+.navbar-nav ul {
     text-align: center;
 
 }
-.navbar-nav
-{
+
+.navbar-nav {
     padding-left: 2px;
 }
-.dropdown-content
-{
-  background-color: #f9f9f9;
+
+.dropdown-content {
+    background-color: #f9f9f9;
 }
+
 .navbar-nav {
     text-align: center;
 
     /*padding-left: 2px;*/
     /*!*position: fixed;*!*/
-/*display: block;*/
+    /*display: block;*/
 
     background-image: url("../static/img/download.jpeg");
 }
@@ -162,7 +203,7 @@ h3 {
     height: 100%;
     /*position: fixed;*/
     margin-bottom: 0px;
-display: block;
+    display: block;
 
 }
 

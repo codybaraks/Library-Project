@@ -4,16 +4,16 @@ from wtforms.validators import DataRequired,Email, Length, Regexp
 
 class EmailPasswordForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(),Email()])
-    password = PasswordField('Password', validators=[DataRequired(message="You must provide a password"),])
+    password = PasswordField('Password', validators=[DataRequired(message="You must provide a password")])
 
 class UserRegForm(FlaskForm):
     name = StringField('Name', validators=[DataRequired(),Length(min=8, message="Your name is too short")])
     email = StringField('Email', validators=[DataRequired(),Email(message="Invalid Emaill")])
     password = PasswordField('Password', validators=[DataRequired(message="You must provide a password"), Length(min=6, message="Password Too short")])
 
-class LoginForm(FlaskForm):
+class UserLoginForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(),Email(message="Invalid Emaill")])
-    password = PasswordField('Password', validators=[DataRequired(message="You must provide a password"), Length(min=6, message="Password Too short")])
+    password = PasswordField('Password', validators=[DataRequired(message="You must provide a password"), Length(min=3,  message="Password Too short")])
 
 
 class BorowRegForm(FlaskForm):

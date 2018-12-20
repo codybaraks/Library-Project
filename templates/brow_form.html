@@ -28,7 +28,9 @@
                         <form method="post" action="/borrow">
                          {{ form.csrf_token }}
                             <div class="form-group">
+                             <div class="inner-addon left-addon">
                                 <label for="exampleInputname">Name</label>
+                               <div class="reg_user1"><img src="../static/img/user.png" height="22" width="22" alt="okk"></div>
                                 <input type="name" name="name" class="form-control" id="exampleInputname"
                                        aria-describedby="nameHelp" placeholder="Enter name"
                                       value="{% if form.name.data %}{{ form.name.data  }}{% endif %}">
@@ -41,9 +43,12 @@
                                 {% endfor %}
 
                             </div>
+                            </div>
 
                             <div class="form-group">
+                             <div class="inner-addon left-addon">
                                 <label for="exampleInputEmail1">Email address</label>
+                               <div class="reg_user2"><img src="../static/img/email.png" height="20" width="17" alt="okk"></div>
                                 <input type="email" name="email" class="form-control" id="exampleInputEmail1"
                                        aria-describedby="emailHelp" placeholder="Enter email"
                                  value="{% if form.email.data %}{{ form.email.data }}{% endif %}">
@@ -56,9 +61,12 @@
                                 {% endfor %}
 
                             </div>
+                            </div>
 
                             <div class="form-group">
+                             <div class="inner-addon left-addon">
                                 <label for="exampleInputPhone">Phone</label>
+                               <div class="reg_user3"><img src="../static/img/pass.png" height="22" width="22" alt="okk"></div>
                                 <input type="phone" name="phone" class="form-control" id="exampleInputPhone"
                                        aria-describedby="PhoneHelp" placeholder="Enter Phone"
                                  value="{% if form.phone.data %}{{ form.phone.data }}{% endif %}">
@@ -70,6 +78,7 @@
                                     <span style="color: maroon;">{{ error }}</span>
                                 {% endfor %}
 
+                            </div>
                             </div>
                             <div class="pull-right">
                                 <button type="submit" class="btn btn-primary btn-block btn-sm">Submit</button>

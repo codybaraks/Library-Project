@@ -1,6 +1,8 @@
 {% extends 'Base.html' %}
 
 {% block content %}
+{#    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">#}
+
     <body background="../static/img/HDlib.jpg">
     <div class="container">
         {% with messages = get_flashed_messages() %}
@@ -32,6 +34,7 @@
                             </div>
 
                             <div class="form-group">
+
                                 <label for="exampleInputEmail1">Borrower</label>
                                 <select name="borrower_id" class="form-control">
 

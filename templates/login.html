@@ -28,17 +28,22 @@
                         <form method="post" action="/login">
                             {{ form.csrf_token }}
                             <div class="form-group">
+                            <div class="inner-addon left-addon">
                                 <label for="exampleInputtitle">Email</label>
+                                <div class="log_user"><img src="../static/img/user.png" height="22" width="22" alt="okk"></div>
                                 <input type="email" name="email" class="form-control" id="exampleInputtitle"
-                                       aria-describedby="titleHelp" placeholder="Enter title"
-                                  value="{% if form.email.data %}{{ form.email.data }}{% endif %}">
+                                       aria-describedby="titleHelp" style="color: #9C1A1C" placeholder="Enter title"
+                                       value="{% if form.email.data %}{{ form.email.data }}{% endif %}">
                                 {% for error in form.email.errors %}
                                     <span style="color: red;">[{{ error }}]</span>
                                 {% endfor %}
                             </div>
+                            </div>
 
                             <div class="form-group">
+                            <div class="inner-addon left-addon">
                                 <label for="exampleInputtitle">Password</label>
+                               <div class="log_pass"><img src="../static/img/pass.png" height="22" width="22" alt="okk"></div>
                                 <input type="password" name="password" class="form-control" id="exampleInputtitle"
                                        aria-describedby="titleHelp" placeholder="Enter title"
                                        value="{% if form.password.data %}{{ form.password.data }}{% endif %}">
@@ -47,6 +52,7 @@
                                     <span style="color: red;">{{ error }}</span>
                                 {% endfor %}
 
+                            </div>
                             </div>
 
 
@@ -57,6 +63,7 @@
             </div>
         </div>
     </div>
+
 
 
 

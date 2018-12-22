@@ -1,98 +1,111 @@
 {% extends 'Base.html' %}
 
 {% block content %}
-    {## users uid, names, email, password, role#}
-    {## borrowers bid, names, email, phone#}
-    {## books book_id, title, author, category, book_number#}
-    {## transactions tid, bid, date_borrowed, date_returned, expected_return_date, status#}
-    {## charges cid, date_charged, amount, status#}
-    {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            <ul class=flashes>
-                {% for message in messages %}
-                    <p class="text-info text-center">{{ message }}</p>
-                {% endfor %}
-            </ul>
-        {% endif %}
-    {% endwith %}
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-6">
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="text-center">Register</h3>
-                    </div>
-                    <div class="card-body">
+{## users uid, names, email, password, role#}
+{## borrowers bid, names, email, phone#}
+{## books book_id, title, author, category, book_number#}
+{## transactions tid, bid, date_borrowed, date_returned, expected_return_date, status#}
+{## charges cid, date_charged, amount, status#}
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+<ul class=flashes>
+    {% for message in messages %}
+    <p class="text-info text-center">{{ message }}</p>
+    {% endfor %}
+</ul>
+{% endif %}
+{% endwith %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="text-center">Register</h3>
+                </div>
+                <div class="card-body">
 
-                        <form method="post" action="/form">
-                            <div class="form-group">
+                    <form method="post" action="/form">
+                        <div class="form-group">
                             <div class="inner-addon left-addon">
                                 <label for="exampleInputname">Name</label>
-                             <div class="reg_user1"><img src="../static/img/user.png" height="22" width="22" alt="okk"></div>
+                                <div class="reg_user1"><img src="../static/img/user.png" height="22" width="22"
+                                                            alt="okk"></div>
                                 <input type="name" name="name" class="form-control" id="exampleInputname"
-                                       aria-describedby="nameHelp" placeholder="Enter name"  value="{% if form.name.data %}{{ form.name.data  }}{% endif %}">
+                                       aria-describedby="nameHelp" placeholder="Enter name"
+                                       value="{% if form.name.data %}{{ form.name.data  }}{% endif %}">
                                 <small id="nameHelp" class="form-text text-muted">We'll never share your name with
                                     anyone
                                     else.
                                 </small>
                                 {% for error in form.name.errors %}
-                                    <span style="color: red;">{{ error }}</span>
+                                <span style="color: red;">{{ error }}</span>
                                 {% endfor %}
 
                             </div>
-                            </div>
-                            <div class="form-group">
+                        </div>
+                        <div class="form-group">
                             <div class="inner-addon left-addon">
                                 <label for="exampleInputEmail1">Email address</label>
-                            <div class="reg_user2"><img src="../static/img/email.png" height="20" width="18" alt="okk"></div>
+                                <div class="reg_user2"><img src="../static/img/email.png" height="20" width="18"
+                                                            alt="okk"></div>
                                 <input type="email" name="email" class="form-control" id="exampleInputEmail1"
-                                       aria-describedby="emailHelp" placeholder="Enter email" value="{% if form.email.data %}{{ form.email.data  }}{% endif %}">
+                                       aria-describedby="emailHelp" placeholder="Enter email"
+                                       value="{% if form.email.data %}{{ form.email.data  }}{% endif %}">
                                 <small id="emailHelp" class="form-text text-muted">We'll never share your email with
                                     anyone
                                     else.
                                 </small>
                                 {% for error in form.email.errors %}
-                                    <span style="color: red;">{{ error }}</span>
+                                <span style="color: red;">{{ error }}</span>
                                 {% endfor %}
 
                             </div>
-                            </div>
+                        </div>
 
 
-                            <div class="form-group">
+                        <div class="form-group">
                             <div class="inner-addon left-addon">
                                 <label for="exampleInputPassword1">Password</label>
-                             <div class="reg_user3"><img src="../static/img/pass.png" height="22" width="22" alt="okk"></div>
+                                <div class="reg_user3"><img src="../static/img/pass.png" height="22" width="22"
+                                                            alt="okk"></div>
                                 <input type="password" name="password" class="form-control" id="exampleInputPassword1"
-                                       placeholder="Password" >
+                                       placeholder="Password">
                                 {% for error in form.password.errors %}
-                                    <span style="color: red;">{{ error }}</span>
+                                <span style="color: red;">{{ error }}</span>
                                 {% endfor %}
 
                             </div>
-                            </div>
+                        </div>
 
-                            <div class="form-check-inline">
-                                <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="role" value="Normal" checked>Normal
-                                </label>
-                            </div>
-                            <div class="form-check-inline">
-                                <label class="form-check-label">
-                                    <input type="radio" class="form-check-input" name="role" value="Admin">Admin
-                                </label>
-                            </div>
+                        <!--<div class="form-check-inline">-->
+                            <!--<label class="form-check-label">-->
+                                <!--<input type="radio" class="form-check-input" name="role" value="Normal" checked>Normal-->
+                            <!--</label>-->
+                        <!--</div>-->
+                        <!--<div class="form-check-inline">-->
+                            <!--<label class="form-check-label">-->
+                                <!--<input type="radio" class="form-check-input" name="role" value="Admin">Admin-->
+                            <!--</label>-->
+                        <!--</div>-->
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Role</label>
+                            <select required  class="form-control " name="role" id="exampleFormControlSelect1" >
+                                <option disabled selected value style="display:none"> -- select an option -- </option>
+                                <option>Normal</option>
+                                <option>Admin</option>
+                            </select>
+                        </div>
 
 
-                            {{ form.csrf_token }}
-                            <button type="submit" class="btn btn-primary btn-block btn-md">Submit</button>
-                        </form>
-                    </div>
+                        {{ form.csrf_token }}
+                        <button type="submit" class="btn btn-primary btn-block btn-md">Submit</button>
+                    </form>
                 </div>
-
             </div>
+
         </div>
     </div>
+</div>
 
 
 {% endblock %}

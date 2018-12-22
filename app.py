@@ -323,6 +323,8 @@ def fake():
     return "Fake Route"
 
 
+# The part for handling exceptions
+
 @app.errorhandler(404)
 def error_page(e):
     return render_template('error.html')

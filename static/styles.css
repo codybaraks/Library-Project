@@ -124,8 +124,9 @@ p.yellow-text {
     color: gold;
 
 }
-
+.navbar {min-height:2px !important}
 .navbar-nav {
+min-height:4%;
     text-align: center;
     width: 55%;
 

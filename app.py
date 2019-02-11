@@ -290,7 +290,7 @@ def returned(id):
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    loginForm=UserLoginForm()
+    loginForm = UserLoginForm()
     if request.method == 'GET':
         return render_template('login.html', form=loginForm)
     if loginForm.validate_on_submit():
@@ -302,12 +302,13 @@ def login():
         cursor.execute(sql, vals)
         user = cursor.fetchone()
         if user:
-            session['names'] = user[1]
+            session['name'] = user[1]
             session['role'] = user[4]
             return redirect(url_for('homes'))
         else:
             flash('message', 'wrong username or password!')
     return render_template('login.html', form=loginForm)
+
 
 @app.route('/logout')
 def logout():

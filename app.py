@@ -302,7 +302,7 @@ def login():
         cursor.execute(sql, vals)
         user = cursor.fetchone()
         if user:
-            session['names'] = user[1]
+            session['name'] = user[1]
             session['role'] = user[4]
             return redirect(url_for('homes'))
         else:
